@@ -4,6 +4,7 @@ package tilelighting
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Graphiclist;
+	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Tilemap;
 	import net.flashpunk.masks.Grid;
 	/**
@@ -41,6 +42,7 @@ package tilelighting
 		
 		private var _screenColumns:int;
 		private var _screenRows:int;
+		private var _maxLightLevel:int;
 		private var _lights:Dictionary;
 		private var _tiles:Tilemap;
 		private var _grid:Grid;
@@ -67,6 +69,7 @@ package tilelighting
 			_screenColumns = Math.floor(FP.screen.width / tileWidth) + _padding;
 			_screenRows = Math.floor(FP.screen.height / tileHeight) + _padding;
 			_lights = new Dictionary();
+			_maxLightLevel = new Image(image).width / tileWidth - 1;
 			
 			_tiles = new Tilemap(image, width, height, tileWidth, tileHeight);
 			_tiles.floodFill(0, 0);
@@ -133,7 +136,7 @@ package tilelighting
 									{
 										index = Math.ceil(FP.scaleClamp(FP.distance(light.column, light.row, i, j), 0, light.radius, light.brightness + light.falloff, 0));
 										prevIndex = _tiles.getTile(i, j);
-										_tiles.setTile(i, j, FP.clamp(index + prevIndex, 0, light.brightness));
+										_tiles.setTile(i, j, FP.clamp(index + prevIndex, 0, _maxLightLevel));
 									}
 								}
 							}
