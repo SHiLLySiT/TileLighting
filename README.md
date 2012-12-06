@@ -5,6 +5,8 @@ Dynamic tile-lighting system for FlashPunk.
 Features
 =============
 * Light position, size, brightness, and falloff
+* Custom light tiles
+* Additive lights
 * Enable/disable lights without removing them
 * Only renders visible lights/updates visible screen
 * Auto-update or manual control
