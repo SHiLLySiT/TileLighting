@@ -29,12 +29,15 @@ package tilelighting
 		
 		private var _brightness:int;
 		/**
-		 * Brightness of the light. Valid values are 0 to the length of your source image.
+		 * Brightness of the light. Valid values are 0 to the number of tiles (minus one) in your source image.
 		 */
 		public function get brightness():int { return _brightness; }
 		public function set brightness(value:int):void { _brightness = value; }
 		
 		private var _falloff:int;
+		/**
+		 * Affects the distance at which the light begins to fade to darkness; higher values = greater intensity.
+		 */
 		public function get falloff():int { return _falloff; }
 		public function set falloff(value:int):void { _falloff = value; }
 		
@@ -54,7 +57,7 @@ package tilelighting
 		 * @param	falloff
 		 * @param	enabled	If the light should be on.
 		 */
-		public function TileLight(column:int, row:int, radius:int, brightness:int, falloff:int = 1, enabled:Boolean = true) 
+		public function TileLight(column:int, row:int, radius:int, brightness:int, falloff:int = 0, enabled:Boolean = true) 
 		{
 			_column = column;
 			_row = row;
