@@ -1,8 +1,13 @@
-TiledLighting
+TilLighting
 =============
+Dynamic tile-lighting system for FlashPunk.
 
-Dynamic Lighting system for FlashPunk using tilemaps.
-
+FEATURES
+=============
+* Light position, size, brightness, and falloff
+* Enable/disable lights without removing them
+* Only renders visible lights/updates visible screen
+* Auto-update or manual control
 
 Usage
 =============
