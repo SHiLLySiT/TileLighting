@@ -2,6 +2,7 @@ package demo
 {
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Image;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.World;
@@ -23,6 +24,7 @@ package demo
 		
 		public function GameWorld()
 		{
+			addGraphic(new Image(Assets.SPR_BG), 1000);
 			add(_cursor = new Cursor());
 			_lighting = new TileLighting(Assets.SPR_LIGHTING, FP.screen.width, FP.screen.height, TILE_SIZE, TILE_SIZE);
 			add(_lighting);
