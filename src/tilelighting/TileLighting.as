@@ -33,6 +33,12 @@ package tilelighting
 		public function get padding():int { return _padding; }
 		public function set padding(value:int):void { _padding = value; }
 		
+		private var _count:int;
+		/**
+		 * The current number of lights (enabled and disabled)
+		 */
+		public function get count():int { return _count; }
+		
 		private var _screenColumns:int;
 		private var _screenRows:int;
 		private var _lights:Dictionary;
@@ -54,6 +60,7 @@ package tilelighting
 			layer = -50;
 			type = "tileLighting";
 			
+			_count = 0;
 			_autoUpdate = true;
 			_ambientLevel = 0;
 			_padding = 2;
@@ -102,22 +109,32 @@ package tilelighting
 			// draw each light
 			for each (var light:TileLight in _lights)
 			{
+				// if not enabled, skip
 				if (light.enabled)
 				{
-					var xx:int = light.column - light.radius;
-					var yy:int = light.row - light.radius;
-					
-					for (var i:int = xx; i < xx + (light.radius << 1); i++)
+					// if not on camera, skip
+					if (light.column + light.radius > camX && light.column - light.radius < camX + _screenColumns
+					&& light.row + light.radius > camY && light.row - light.radius < camY + _screenRows)
 					{
-						for (var j:int = yy; j < yy + (light.radius << 1); j++)
+						var xx:int = light.column - light.radius;
+						var yy:int = light.row - light.radius;
+						var index:int;
+						var prevIndex:int;
+						
+						for (var i:int = xx; i < xx + (light.radius << 1); i++)
 						{
-							// stops tiles from "bleeding over" to the other side of the tile map
-							if (i >= 0 && i < _tiles.columns && j >= 0 && j < _tiles.rows) 
+							for (var j:int = yy; j < yy + (light.radius << 1); j++)
 							{
-								// examine the block
-								if (!checkBlock(light.column, light.row, i, j))
+								// stops tiles from "bleeding over" to the other side of the tile map
+								if (i >= 0 && i < _tiles.columns && j >= 0 && j < _tiles.rows) 
 								{
-									_tiles.setTile(i, j, light.brightness);
+									// examine the block
+									if (!checkBlock(light.column, light.row, i, j))
+									{
+										index = Math.ceil(FP.scaleClamp(FP.distance(light.column, light.row, i, j), 0, light.radius, light.brightness + light.falloff, 0));
+										prevIndex = _tiles.getTile(i, j);
+										_tiles.setTile(i, j, FP.clamp(index + prevIndex, 0, light.brightness));
+									}
 								}
 							}
 						}
@@ -163,6 +180,7 @@ package tilelighting
 		public function addLight(light:TileLight):void
 		{
 			_lights[light] = light;
+			_count++;
 		}
 		
 		/**
@@ -172,6 +190,7 @@ package tilelighting
 		public function removeLight(light:TileLight):void
 		{
 			delete _lights[light];
+			_count--;
 		}
 		
 		/**
