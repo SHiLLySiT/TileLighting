@@ -2,7 +2,7 @@ TileLighting
 =============
 Dynamic tile-lighting system for FlashPunk.
 
-FEATURES
+Features
 =============
 * Light position, size, brightness, and falloff
 * Enable/disable lights without removing them
