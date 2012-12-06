@@ -11,4 +11,5 @@ Features
 
 Usage
 =============
+* Demo can be found here: http://pixelsquidgames.net/projects/tilelighting/tilelighting_demo.html
 * For the demo, you'll need to download my branch of FlashPunk: https://github.com/SHiLLySiT/FlashPunk
