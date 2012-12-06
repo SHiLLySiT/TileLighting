@@ -111,9 +111,14 @@ package tilelighting
 					{
 						for (var j:int = yy; j < yy + (light.radius << 1); j++)
 						{
-							if (!checkBlock(light.column, light.row, i, j))
+							// stops tiles from "bleeding over" to the other side of the tile map
+							if (i >= 0 && i < _tiles.columns && j >= 0 && j < _tiles.rows) 
 							{
-								_tiles.setTile(i, j, light.brightness);
+								// examine the block
+								if (!checkBlock(light.column, light.row, i, j))
+								{
+									_tiles.setTile(i, j, light.brightness);
+								}
 							}
 						}
 					}
