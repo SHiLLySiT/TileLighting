@@ -1,4 +1,4 @@
-TilLighting
+TileLighting
 =============
 Dynamic tile-lighting system for FlashPunk.
 
