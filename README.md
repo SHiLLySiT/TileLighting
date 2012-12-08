@@ -21,6 +21,7 @@ Usage
 Changelog
 =============
 12/08/12
-* Performance fix in the checkblock function. Large lights and many lights shouldn't cause such a huge slowdown anymore.
+- Performance fix in the checkblock function. Large lights and many lights shouldn't cause such a huge slowdown anymore.
+
 12/05/12
-* Initial release.
+- Initial release.
