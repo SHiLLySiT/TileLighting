@@ -156,24 +156,62 @@ package tilelighting
 		 */
 		private function checkBlock(column1:int, row1:int, column2:int, row2:int):Boolean
 		{
-			// if tile is solid, set to non-solid
-			var solid:Boolean;
-			if (_grid.getTile(column2, row2))
+			// If the distance is less than 1, just check start point.
+			if (FP.distance(column1, row1, column2, row2) < 1)
 			{
-				solid = true;
-				_grid.setTile(column2, row2, false);
+				return _grid.getTile(column1, row1);
 			}
 			
-			// check collisions
-			var e:Entity = world.collideLine(this.type, (column1 * _tiles.tileWidth) + (_tiles.tileWidth >> 1), (row1 * _tiles.tileHeight) + (_tiles.tileHeight >> 1), (column2 * _tiles.tileWidth) + (_tiles.tileWidth >> 1), (row2 * _tiles.tileHeight) + (_tiles.tileHeight >> 1), 3);
+			// Get information about the line we're about to raycast.
+			var xDelta:int = Math.abs(column2 - column1),
+				yDelta:int = Math.abs(row2 - row1),
+				xSign:Number = column2 > column1 ? 1 : -1,
+				ySign:Number = row2 > row1 ? 1 : -1,
+				x:Number = column1, y:Number = row1;
 			
-			// reset solid tile
-			if (solid)
+			// Do a raycast from the start to the end point.
+			if (xDelta > yDelta)
 			{
-				_grid.setTile(column2, row2, true);
+				ySign *= yDelta / xDelta;
+				if (xSign > 0)
+				{
+					while (x < column2)
+					{
+						if (_grid.getTile(x, y)) return true;
+						x += xSign; y += ySign;
+					}
+				}
+				else
+				{
+					while (x > column2)
+					{
+						if (_grid.getTile(x, y)) return true;
+						x += xSign; y += ySign;
+					}
+				}
+			}
+			else
+			{
+				xSign *= xDelta / yDelta;
+				if (ySign > 0)
+				{
+					while (y < row2)
+					{
+						if (_grid.getTile(x, y)) return true;
+						x += xSign; y += ySign;
+					}
+				}
+				else
+				{
+					while (y > row2)
+					{
+						if (_grid.getTile(x, y)) return true;
+						x += xSign; y += ySign;
+					}
+				}
 			}
 			
-			return (e) ? true : false;
+			return false;
 		}
 		
 		/**
