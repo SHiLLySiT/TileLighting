@@ -2,6 +2,10 @@ TileLighting
 =============
 Dynamic tile-lighting system for FlashPunk.
 
+* Demo can be found here: http://pixelsquidgames.net/projects/tilelighting/tilelighting_demo.html
+* The demo uses my own branch of FlashPunk: https://github.com/SHiLLySiT/FlashPunk
+* NOTE: my demo and version of FlashPunk require Flash 11.2+
+
 Features
 =============
 * Light position, size, brightness, and falloff
@@ -10,13 +14,6 @@ Features
 * Enable/disable lights without removing them
 * Only renders visible lights/updates visible screen
 * Auto-update or manual control
-
-Usage
-=============
-* Demo can be found here: http://pixelsquidgames.net/projects/tilelighting/tilelighting_demo.html
-* The demo uses my own branch of FlashPunk: https://github.com/SHiLLySiT/FlashPunk
-* NOTE: my demo and version of FlashPunk require Flash 11.2+
-
 
 Changelog
 =============
