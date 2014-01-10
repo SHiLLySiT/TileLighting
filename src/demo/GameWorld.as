@@ -128,7 +128,7 @@ package demo
 			// light creation
 			if (Input.mousePressedMiddle)
 			{
-				_lighting.addLight(new TileLight(_cursor.tileX, _cursor.tileY, 3, 4, 1));
+				_lighting.addLight(new TileLight(_cursor.tileX, _cursor.tileY, _cursor.light.radius, _cursor.light.brightness, _cursor.light.falloff));
 				_debug.text = "R: restart\nQ/E: size\nW/S: falloff\nA/D: brightness\n1/2: global light\nL/R/U/D: pan camera\nLeft Click: place block\nRight Click: remove block\nMiddle Click: add light\n\nLIGHTS: " + _lighting.count;
 				FP.log("ADDED LIGHT");
 			}
